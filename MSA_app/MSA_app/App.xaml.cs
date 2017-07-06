@@ -14,6 +14,7 @@ namespace MSA_app
 			InitializeComponent();
 
 			MainPage = new MSA_app.MainPage();
+
 		}
 
 		protected override void OnStart ()
