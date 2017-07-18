@@ -4,6 +4,7 @@
              x:Class="MSA_app.EasyTables">
     <StackLayout Orientation="Vertical" BackgroundColor="Black">
         <Button Text="Load Table" TextColor="Black" BackgroundColor="AliceBlue" Clicked="Handle_ClickedAsync" />
+        <ActivityIndicator x:Name="LoadingSpinner" Color="WhiteSmoke" IsRunning="false" />
         <ListView x:Name="deadList"
                   GroupDisplayBinding="{Binding Date}"
                   HasUnevenRows="True">

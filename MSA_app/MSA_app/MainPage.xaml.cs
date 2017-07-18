@@ -83,8 +83,11 @@ namespace MSA_app
             using (var content = new ByteArrayContent(byteData))
             {
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                LoadingSpinner.IsVisible = true;
+                LoadingSpinner.IsRunning = true;
                 response = await client.PostAsync(uri, content);
-
+                LoadingSpinner.IsRunning = false;
+                LoadingSpinner.IsVisible = false;
                 try
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
@@ -120,7 +123,6 @@ namespace MSA_app
                 SadLevel = dedValue.ToString()
             };
             await AzureManager.AzureManagerInstance.PostInfo(newEntry);
-
         }
     }
 }

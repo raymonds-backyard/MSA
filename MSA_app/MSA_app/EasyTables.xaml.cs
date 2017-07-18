@@ -23,8 +23,11 @@ namespace MSA_app
 
         async void Handle_ClickedAsync(object sender, System.EventArgs e)
         {
+            LoadingSpinner.IsVisible = true;
+            LoadingSpinner.IsRunning = true;
             List<deadTable> deadInformation = await AzureManager.AzureManagerInstance.GetInformation();
-
+            LoadingSpinner.IsRunning = false;
+            LoadingSpinner.IsVisible = false;
             deadList.ItemsSource = deadInformation;
         }
     }
