@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
  <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              x:Class="MSA_app.MainPage" Title="MainPage">
+              x:Class="MSA_app.MainPage" Title="Are you dying?">
         <StackLayout Orientation="Vertical" BackgroundColor="Black">
-        
-        <Button Text="Take Photo and Analyze" Clicked="loadCamera" />
-        <Label x:Name="titleLabel" Text="Happiness Meter" TextColor="White" />
-        <Label x:Name="dedLabel" Text="Hello" TextColor="White">
-        </Label>
 
-        <Image x:Name="image" VerticalOptions="EndAndExpand" Aspect="AspectFit"/>
-            
-        </StackLayout>
+        <Button Text="How dead am I on the inside?" TextColor="Black" BackgroundColor="White" Clicked="loadCamera" />
+        <Button Text="Misery History" VerticalOptions="End" Clicked="loadNewPage" />
+        <Label x:Name="dedLabel" Text="Depress-o-meter :" TextColor="White" HorizontalTextAlignment="Start" />
+
+        <Image x:Name="image" VerticalOptions="FillAndExpand" Aspect="AspectFit"/>
+
+    </StackLayout>
     </ContentPage>

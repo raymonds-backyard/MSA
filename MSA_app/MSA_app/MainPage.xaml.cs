@@ -8,7 +8,7 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 using System.Net.Http.Headers;
-
+using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -21,6 +21,13 @@ namespace MSA_app
             InitializeComponent();
             
         }
+
+        private void loadNewPage(object sender, EventArgs e)
+        {
+
+            Navigation.PushAsync(new EasyTables());
+        }
+
 
         private async void loadCamera(object sender, EventArgs e)
         {
@@ -83,19 +90,37 @@ namespace MSA_app
                     var responseContent = await response.Content.ReadAsStringAsync();
                     
                     List<EmotionModel> responseModel = JsonConvert.DeserializeObject<List<EmotionModel>>(responseContent);
-                    double dedValue = Math.Round(responseModel[0].scores.neutral * 100, 0);
-                    dedLabel.Text = $"You are {dedValue}% deadpan";
+                    if (responseModel.Count == 0){
+                        dedLabel.Text = "Depress-o-meter : Ghosts don't have emotions";
+
+                    }
+                    else
+                    {
+                        double dedValue = Math.Round((responseModel[0].scores.neutral + responseModel[0].scores.sadness) * 100, 0);
+                        dedLabel.Text = $"Depress-o-meter : {dedValue}% dead";
+                        UpdateAzureTable(dedValue);
+                    }
+
                 }
                 catch (Exception e)
                 {
-                    dedLabel.Text = System.Convert.ToString(e);
+                    dedLabel.Text = "Depress-o-meter : So dead that the app died.";
                 }
 
                 file.Dispose();
             }
 
-            
-            
+        }
+
+        private async void UpdateAzureTable(double dedValue)
+        {
+            deadTable newEntry = new deadTable
+            {
+                DateUtc = DateTime.Now,
+                SadLevel = dedValue.ToString()
+            };
+            await AzureManager.AzureManagerInstance.PostInfo(newEntry);
+
         }
     }
 }

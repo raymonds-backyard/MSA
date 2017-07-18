@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MSA_app.EasyTables">
+    <StackLayout Orientation="Vertical" BackgroundColor="Black">
+        <Button Text="Load Table" TextColor="Black" BackgroundColor="AliceBlue" Clicked="Handle_ClickedAsync" />
+        <ListView x:Name="deadList"
+                  GroupDisplayBinding="{Binding Date}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="16,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Text="{Binding DateDisplay}" VerticalTextAlignment="Center" TextColor="White"/>
+                            <Label Text="{Binding TimeDisplay}" Grid.Column="1" VerticalTextAlignment="Center" TextColor="White"/>
+                            <Label Text="{Binding SadLevel, StringFormat='{0:N}% Ded'}" Grid.Column="2" VerticalTextAlignment="Center" TextColor="White"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
